@@ -12,17 +12,19 @@ namespace notepad
 {
     public partial class Form1 : Form
     {
+        bool IsChanged = false;
         string FilenameWithPath = "";
 
         public Form1()
         {
             InitializeComponent();
+            this.IsChanged = false;
             SetTitle();
         }
 
        private void Form1_Load(object sender, EventArgs e)
        {
-
+            
         }
 
         private void SetTitle()
@@ -36,35 +38,27 @@ namespace notepad
                 string OnlyFilename = System.IO.Path.GetFileNameWithoutExtension(FilenameWithPath);
                 this.Text = OnlyFilename + " - C# Kladblok";
             }
+
+            // if IsChanged then add * to filename
+            if (IsChanged) this.Text = this.Text + "*";
         }
 
-        private void TitleAsterix()
-
-        {
-            string Asterix = this.Text;
-
-            string check_string = "*";
-
-            bool b = Asterix.Contains(check_string);
-
-            if (!b)
-            {
-                this.Text = Asterix + "*";
-            }
-
-
-        }
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //messagebox asking if you wish to save youre current file with yes or no buttons
+            DialogResult res = MessageBox.Show("Wilt u eerst het bestand opslaan?", "Bevestiging", MessageBoxButtons.YesNo);
             txtMain.Clear();
 
             this.FilenameWithPath = "";
 
+            this.IsChanged = false;
             SetTitle();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //messagebox asking if you wish to save youre current file
+            DialogResult res = MessageBox.Show("Wilt u eerst het bestand opslaan?", "Bevestiging", MessageBoxButtons.YesNo);
             //Shows the openFileDialog
             openFileDialog1.ShowDialog();
             //Reads the text file
@@ -75,7 +69,8 @@ namespace notepad
             OpenFile.Close();
 
             this.FilenameWithPath = openFileDialog1.FileName;
-
+            //*
+            this.IsChanged = false;
             SetTitle();
 
             txtMain.Text = System.IO.File.ReadAllText(FilenameWithPath);
@@ -89,6 +84,8 @@ namespace notepad
             SaveFile.WriteLine(txtMain.Text);
             //Closes the proccess
             SaveFile.Close();
+            //*
+            this.IsChanged = false;
             SetTitle();
         }
 
@@ -102,7 +99,22 @@ namespace notepad
             SaveFile.WriteLine(txtMain.Text);
             //Closes the proccess
             SaveFile.Close();
+            //*
+            this.IsChanged = false;
             SetTitle();
+        }
+
+        private void wordWrapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Toggle WordWrap on/off
+            if (this.txtMain.WordWrap)
+            {
+                this.txtMain.WordWrap = false;
+            }
+            else
+            {
+                this.txtMain.WordWrap = true;
+            }
         }
 
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
@@ -118,37 +130,43 @@ namespace notepad
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //sluit applicatie
+            //close programm
             Application.Exit();
         }
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //undo last made change
             txtMain.Undo();
         }
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //undo last change
             txtMain.Undo();
         }
 
         private void cutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //cut selected text
             txtMain.Cut();
         }
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //copy selected text
             txtMain.Copy();
         }
 
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //paste cut/copied text
             txtMain.Paste();
         }
 
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //select all text inside the file
             txtMain.SelectAll();
         }
 
@@ -159,7 +177,9 @@ namespace notepad
 
         private void txtmain_keydown(object sender, KeyEventArgs e)
         {
-            TitleAsterix();
+            //when a change is made add the * 
+            this.IsChanged = true;
+            SetTitle();
         }
     }
 }

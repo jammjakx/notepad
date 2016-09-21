@@ -54,6 +54,8 @@
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtMain = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.textboxOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wordWrapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +63,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.editToolStripMenuItem});
+            this.editToolStripMenuItem,
+            this.textboxOptionsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(471, 24);
@@ -262,12 +265,28 @@
             this.txtMain.Name = "txtMain";
             this.txtMain.Size = new System.Drawing.Size(471, 502);
             this.txtMain.TabIndex = 1;
+            this.txtMain.WordWrap = false;
             this.txtMain.TextChanged += new System.EventHandler(this.editToolStripMenuItem_Click);
             this.txtMain.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtmain_keydown);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // textboxOptionsToolStripMenuItem
+            // 
+            this.textboxOptionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.wordWrapToolStripMenuItem});
+            this.textboxOptionsToolStripMenuItem.Name = "textboxOptionsToolStripMenuItem";
+            this.textboxOptionsToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
+            this.textboxOptionsToolStripMenuItem.Text = "Textbox options";
+            // 
+            // wordWrapToolStripMenuItem
+            // 
+            this.wordWrapToolStripMenuItem.Name = "wordWrapToolStripMenuItem";
+            this.wordWrapToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wordWrapToolStripMenuItem.Text = "WordWrap";
+            this.wordWrapToolStripMenuItem.Click += new System.EventHandler(this.wordWrapToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -313,6 +332,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ralphVerspuiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem textboxOptionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wordWrapToolStripMenuItem;
     }
 }
 
